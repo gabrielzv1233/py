@@ -3,19 +3,22 @@ import math
 
 # Leave blank (should look like var = "") for the program to ask for input, or enter a pre-defined number and the program will input it for you. Do not enter any other non-number characters besides a period.
 # Do not set pay_rate, hours, or goal to "0".
-pay_rate = "9.5"
-hours = "5"
+pay_rate = ""
+hours = ""
 goal = "1600"
 spending = "5"
 current = "48"
 
 if not any(char.isdigit() and '1' <= char <= '9' for char in pay_rate):
+  if not pay_rate == "": 
     exit("pay_rate cannot be 0")
 if not any(char.isdigit() and '1' <= char <= '9' for char in hours):
+  if not pay_rate == "":
     exit("hours cannot be 0")
 if not any(char.isdigit() and '1' <= char <= '9' for char in goal):
+  if not pay_rate == "": 
     exit("goal cannot be 0")
-    
+
 def checkvar(question, var):
     while True:
         if not re.match(r'^\d+(\.\d+)?$', var):
