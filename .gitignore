@@ -1,0 +1,6 @@
+.git/
+.pythonlabs/
+.upm/
+poetry.lock
+pyproject.toml
+.replit
