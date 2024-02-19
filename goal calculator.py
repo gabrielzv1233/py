@@ -52,7 +52,7 @@ def calculate_time_to_goal():
     months = weeks / 4
 
     print(f"\nIt will take you roughly {days} days/{weeks} weeks/{months} months")
-    print("to reach your goal (assuming you spend no money)")
+    print("to reach your goal")
     print(f"data:\n You make ${money_per_week}/week\n and spend ${spending}/week\n so you can add ${(money_per_week - spending)} to your savings every week")
 
 calculate_time_to_goal()
