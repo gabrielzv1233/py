@@ -3,10 +3,10 @@ import math
 
 # Leave blank (should look like var = "") for the program to ask for input, or enter a pre-defined number and the program will input it for you. Do not enter any other non-number characters besides a period.
 # Do not set pay_rate, hours, or goal to "0".
-pay_rate = ""
-hours = ""
-goal = ""
-spending = ""
+pay_rate = "9.31"
+hours = "5"
+goal = "1600"
+spending = "5.35"
 current = ""
 
 if not any(char.isdigit() and '1' <= char <= '9' for char in pay_rate):

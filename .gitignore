@@ -1,0 +1,7 @@
+# Ignore all files in the folders
+databases/database/*
+databases/users/*
+
+# Exclude the folders themselves
+!databases/database/
+!databases/users/
