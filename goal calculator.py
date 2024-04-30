@@ -4,8 +4,8 @@ import math
 # Leave blank (should look like var = "") for the program to ask for input, or enter a pre-defined number and the program will input it for you. Do not enter any other non-number characters besides a period.
 # Do not set pay_rate, hours, or goal to "0".
 pay_rate = "9.31"
-hours = "5"
-goal = "1600"
+hours = "7"
+goal = "2061.75"
 spending = "5.35"
 current = ""
 

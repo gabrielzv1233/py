@@ -5,6 +5,11 @@ import shelve
 # Folders are not created automatically but the database file is
 db = shelve.open('databases/database/mydatabase')
 
+if "value" in db:
+    print("True")
+else:
+    print("False")
+
 # Set a key-value pair
 db['string'] = 'value'
 db['num'] = 123
