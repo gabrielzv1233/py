@@ -1,22 +1,24 @@
 import re
 import math
+from datetime import datetime, timedelta
 
 # Leave blank (should look like var = "") for the program to ask for input, or enter a pre-defined number and the program will input it for you. Do not enter any other non-number characters besides a period.
 # Do not set pay_rate, hours, or goal to "0".
-pay_rate = "9.31"
-hours = "7"
-goal = "2061.75"
+
+pay_rate = "11"
+hours = "18"
+goal = "366.80"
 spending = "5.35"
 current = ""
 
 if not any(char.isdigit() and '1' <= char <= '9' for char in pay_rate):
-  if not pay_rate == "": 
+  if not pay_rate == "":
     exit("pay_rate cannot be 0")
 if not any(char.isdigit() and '1' <= char <= '9' for char in hours):
   if not hours == "":
     exit("hours cannot be 0")
 if not any(char.isdigit() and '1' <= char <= '9' for char in goal):
-  if not pay_rate == "": 
+  if not goal == "":
     exit("goal cannot be 0")
 
 def checkvar(question, var):
@@ -37,7 +39,7 @@ def calculate_time_to_goal():
     hours = checkvar("Enter the number of hours you work per week: ", hours)
     goal = checkvar("Enter your financial goal: ", goal)
     spending = checkvar("Enter your average spendings in a week: ", spending)
-    current = checkvar("Enter the current ammount you have saved: ", current)
+    current = checkvar("Enter the current amount you have saved: ", current)
     pay_rate = float(pay_rate)
     hours = float(hours)
     current = float(current)
@@ -45,14 +47,16 @@ def calculate_time_to_goal():
     spending = float(spending)
     money_per_week = pay_rate * hours
     if current >= goal:
-        print("you already have enough")
+        print("You already have enough")
         exit(0)
     weeks = math.ceil(goal / (money_per_week - spending))
     days = weeks * 7
     months = weeks / 4
-
-    print(f"\nIt will take you roughly {days} days/{weeks} weeks/{months} months")
-    print("to reach your goal")
-    print(f"data:\n You make ${money_per_week}/week\n and spend ${spending}/week\n so you can add ${(money_per_week - spending)} to your savings every week")
-
+    today = datetime.now()
+    target_date = today + timedelta(weeks=weeks)
+    date = target_date.strftime("%Y/%m/%d")
+    weekly_income = money_per_week
+    net_savings_per_week = money_per_week - spending
+    print(f"\nIt will take you roughly {days} days ({weeks} weeks or {months:.2f} months) to reach your goal. (Calculated to reach by {date}.)")
+    print(f"Data:\n You make ${weekly_income:.2f} per week\n and spend ${spending:.2f} per week\n so you can add ${net_savings_per_week:.2f} to your savings every week")
 calculate_time_to_goal()

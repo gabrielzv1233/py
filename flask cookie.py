@@ -1,4 +1,4 @@
-from flask import Flask, make_response
+from flask import Flask, make_response, request
 import datetime
 
 app = Flask(__name__)
@@ -9,6 +9,10 @@ def main():
     expiration = datetime.datetime.now() + datetime.timedelta(days=365 * 10)
     response.set_cookie('cookie_name', "cookie_value", expires=expiration)
     return response
+
+@app.route("/read")
+def read_cookie():
+     return request.cookies.get('cookie_name')
 
 @app.route("/delete")
 def delete_cookie():

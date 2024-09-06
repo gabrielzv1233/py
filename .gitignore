@@ -1,7 +1,11 @@
 # Ignore all files in the folders
 databases/database/*
 databases/users/*
+archive/
 
 # Exclude the folders themselves
 !databases/database/
 !databases/users/
+
+rules.sk
+compile b64/output.txt
