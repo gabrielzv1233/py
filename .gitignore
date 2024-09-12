@@ -7,5 +7,9 @@ archive/
 !databases/database/
 !databases/users/
 
+FunnyAltF4.spec
 rules.sk
 compile b64/output.txt
+
+dist/
+build/
