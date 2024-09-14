@@ -7,9 +7,10 @@ archive/
 !databases/database/
 !databases/users/
 
+dist/
+build/
+
 FunnyAltF4.spec
 rules.sk
 compile b64/output.txt
-
-dist/
-build/
+system_info_report.html

@@ -1,4 +1,5 @@
 import os
+import win32api
 import platform
 import psutil
 import datetime
@@ -79,7 +80,6 @@ def generate_report():
     system_info = get_system_info()
     disk_info = get_disk_info()
     network_adapters = get_network_info()
-    process_info = get_process_info()
     startup_programs = get_startup_programs()
 
     report = f'''
@@ -160,9 +160,10 @@ def generate_report():
             </tr>
             '''
     for disk in disk_info:
+        
         report += f"""
             <tr>
-                <td>{disk["device"]}</td>
+                <td>{win32api.GetVolumeInformation(disk["device"])[0] if win32api.GetVolumeInformation(disk["device"])[0] != "" else "&ltnone&gt"}</td>
                 <td>{disk["mountpoint"]}</td>
                 <td>{disk["file_system"]}</td>
                 <td>{disk["total"]}</td>
@@ -178,16 +179,7 @@ def generate_report():
                 <td>{adapter["name"]}</td>
                 <td>{adapter["mac"]}</td>
             </tr>
-        """
-    report += '\n        </table>\n    </div>\n\n    <div class="report-section">\n        <div class="report-title">Running Processes</div>\n        <table>\n            <tr>\n                <th>PID</th>\n                <th>Name</th>\n                <th>User</th>\n                <th>Start Time</th>\n            </tr>\n    '
-    for process in process_info:
-        report += f"""
-            <tr>
-                <td>{process["pid"]}</td>
-                <td>{process["name"]}</td>
-                <td>{process["user"]}</td>
-                <td>{process["start_time"]}</td>
-            </tr>
+
         """
     report += '\n        </table>\n    </div>\n\n    <div class="report-section">\n        <div class="report-title">Startup Programs</div>\n        <table>\n            <tr>\n                <th>Name</th>\n                <th>Path</th>\n            </tr>\n    '
     for program in startup_programs:
