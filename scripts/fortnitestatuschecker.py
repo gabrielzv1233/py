@@ -3,11 +3,12 @@ from bs4 import BeautifulSoup
 import json
 import time
 
-discord_webhook = "https://discord.com/api/webhooks/1273905336725798954/CuQl6SMWv3ttlQ9jO_VOQn0E2nt8S8G31tuOd0CISAItnm2NQ3twvKh__45Gy9gJgjYX"
+discord_webhook = "https://discord.com/api/webhooks/1302167690395258880/5d2NAV1eM0_J4zd0R7JKc0YvYUwS2qt2LGqbm8iPFyzQDYrbHzIMG4W-Xct0uIDTHS3j"
 url = "https://status.epicgames.com/"
 ping_everyone_on_up = True
 stop_when_up = True
 seconds_delay = 60
+ping = "@&fortnite_status_ping"
 
 try:
     while True:
@@ -57,7 +58,7 @@ try:
                         if is_down:
                             premsg = f"​\n`This check is made {seconds_delay} seconds`\n"
                         else:
-                            premsg = f"@everyone\n`This check is made {seconds_delay} seconds`\n"
+                            premsg = f"{ping}\n`This check is made {seconds_delay} seconds`\n"
                     else:
                         premsg = f"​\n`This check is made {seconds_delay} seconds`\n"
                         

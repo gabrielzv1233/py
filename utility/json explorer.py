@@ -49,7 +49,7 @@ def navigate_data(data, current_path="/"):
                     return result
             elif isinstance(value, list):
                 clear_console()
-                print(f"{new_path} is a list with {len(value)} elements.")
+                print(f"{new_path} is a list with {len(value)} elements.\n{value}")
                 input("\nPress Enter to continue...")
             else:
                 clear_console()

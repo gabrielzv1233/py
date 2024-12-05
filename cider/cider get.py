@@ -24,4 +24,5 @@ def print_values(data):
             recursive_print(info)
 
 data = call_cider("now-playing")
+print("Raw JSON:\n"+ str(data)+"\n\nFormatted JSON:")
 print_values(data)
