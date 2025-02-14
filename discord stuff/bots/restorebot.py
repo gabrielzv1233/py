@@ -1,9 +1,9 @@
+from discord.ext import commands
 import discord
 import json
 import os
-from discord.ext import commands
 
-TOKEN = "Bot token"
+TOKEN = "Bot token here"
 
 intents = discord.Intents.all()
 intents.members = True
@@ -13,10 +13,8 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def on_ready():
     await bot.tree.sync()
     print(f"Bot is ready! Logged in as {bot.user}")
+    print(f"Invite link: https://discord.com/oauth2/authorize?client_id={bot.user.id}&permissions=8&integration_type=0&scope=bot")
 
-# -----------------------------
-# EXPORT COMMAND
-# -----------------------------
 @bot.tree.command(name="exportserverinfo", description="Exports all server roles, members, categories, and channels into a file.")
 async def export_server_info(interaction: discord.Interaction):
     guild = interaction.guild
@@ -104,10 +102,6 @@ async def export_server_info(interaction: discord.Interaction):
     await interaction.response.send_message(f"Server information for `{guild.name}` exported:", file=discord.File(filename), ephemeral=True)
     os.remove(filename)
 
-
-# -----------------------------
-# RESTORE COMMAND WITH CONFIRMATION
-# -----------------------------
 class RestoreView(discord.ui.View):
     def __init__(self, interaction: discord.Interaction, guild: discord.Guild, data: dict):
         super().__init__(timeout=60)
@@ -274,7 +268,7 @@ class RestoreView(discord.ui.View):
         if report["missing_channels"]:
             report_msg += f"⚠️ Could not create/edit channels: {', '.join(report['missing_channels'])}\n"
 
-        await self.interaction.followup.send(report_msg or "✅ Restore completed successfully!", ephemeral=True)
+        await self.interaction.followup.send(report_msg or "✅ Restore completed successfully!")
 
     @discord.ui.button(label="Yes (Overwrite)", style=discord.ButtonStyle.green)
     async def yes_button(self, interaction: discord.Interaction, button: discord.ui.Button):
