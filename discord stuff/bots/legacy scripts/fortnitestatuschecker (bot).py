@@ -39,7 +39,6 @@ async def get_current_status():
             soup = BeautifulSoup(response.content, 'html.parser')
             print("Successfully parsed HTML content.")
 
-            # Locate the services section
             component_container = soup.find('div', class_='child-components-container')
             if not component_container:
                 print("Failed to find child-components-container in HTML.")
@@ -50,18 +49,15 @@ async def get_current_status():
             print(f"Found {len(components)} components in the status page.")
             
             global services_down
-            services_down = False  # Reset the flag before checking components
+            services_down = False 
             
             up_count = 0
             
             for component in components:
-                # Extract service name
                 name_tag = component.find('span', class_='name')
-                # Extract status from the `data-component-status` attribute
                 status_attribute = component.get('data-component-status', '').strip()
                 if name_tag and status_attribute:
                     service_name = name_tag.text.strip()
-                    # Map the status to a human-readable format
                     if status_attribute == 'operational':
                         service_status = 'Operational'
                     elif status_attribute == 'under_maintenance':
@@ -76,10 +72,8 @@ async def get_current_status():
                 else:
                     print(f"Skipped a component due to missing data: {component}")
 
-            # Format the output
             formatted_components = "\n".join(f"> {msg}" for msg in component_messages)
 
-            # Final combined message
             combined_message = f"### Current Fortnite Status:\n{formatted_components}"
             
             if len(components) != up_count:
@@ -100,7 +94,7 @@ async def perform_status_check():
     global stop_when_up, services_down
 
 
-    if stop_when_up: # Best to have this enabled
+    if stop_when_up:
         if not is_down and services_down:
             print("All services are operational. Stopping updates due to 'stop_when_up'.")
             services_down = False
@@ -155,7 +149,7 @@ async def purge(interaction: discord.Interaction):
             if message.author == bot.user:
                 try:
                     await message.delete()
-                    await asyncio.sleep(0.5)  # Prevent rate limiting
+                    await asyncio.sleep(0.5)
                 except discord.Forbidden:
                     await interaction.followup.send("Cannot delete messages: Missing permissions.", ephemeral=True)
                     break

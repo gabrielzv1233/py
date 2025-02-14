@@ -7,7 +7,9 @@ import discord
 import html
 import re
 
-token = "BOT TOKEN"
+# todo for pings, roles, @everyone and @here 
+
+token = "token go here homie"
 
 app = Flask(__name__)
 message_cache = deque(maxlen=500)
@@ -175,7 +177,7 @@ async def on_message(message):
 
     raw_content = re.sub(
         r'&lt;#(\d+)&gt;',
-        lambda match: f'<span class="channel" title="{match.group(1)}">#{get_channel_name(match.group(1))}</span>',
+        lambda match: f'<span class="channel" title="{match.group(1)}"># {get_channel_name(match.group(1))}</span>',
         raw_content
     )
 
@@ -206,5 +208,14 @@ async def on_message(message):
 
     message_cache.append(new_message)
 
-threading.Thread(target=app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=False), daemon=True).start()
-bot.run(token)
+def run_flask():
+    app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=False)
+
+def run_discord():
+    bot.run(token)
+
+if __name__ == "__main__":
+    import threading
+    flask_thread = threading.Thread(target=run_flask, daemon=True)
+    flask_thread.start()
+    run_discord()

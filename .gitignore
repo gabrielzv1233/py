@@ -9,3 +9,4 @@ rules.sk
 compile b64/output.txt
 system_info_report.html
 album_icon.png
+processes_and_services.txt

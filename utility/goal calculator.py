@@ -5,10 +5,10 @@ from datetime import datetime, timedelta
 # Leave blank (should look like var = "") for the program to ask for input, or enter a pre-defined number and the program will input it for you. Do not enter any other non-number characters besides a period.
 # Do not set pay_rate, hours, or goal to "0".
 
-pay_rate = "11"
-hours = "18"
-goal = "366.80"
-spending = "5.35"
+pay_rate = "7.5"
+hours = "69"
+goal = "3200"
+spending = "255"
 current = ""
 
 if not any(char.isdigit() and '1' <= char <= '9' for char in pay_rate):

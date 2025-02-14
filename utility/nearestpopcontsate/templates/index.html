@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Population Checker</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Population Checker</h1>
+    <p id="disclaimer">{{ disclaimer }}</p>
+
+    <form id="population-form">
+        <label for="population">Enter a population number:</label>
+        <input type="number" id="population" name="population" required>
+        <button type="submit">Check Population</button>
+    </form>
+
+    <p id="error-message" style="color: red; display: none;"></p>
+    <div id="result"></div>
+
+    <script>
+        const lowestCountryPop = {{ lowest_country.population }};
+        const lowestStatePop = {{ lowest_state.population }};
+
+        $("#population-form").on("submit", function (e) {
+            e.preventDefault();
+
+            const populationInput = parseInt($("#population").val());
+
+            $("#result").html("<h3>Loading...</h3>");
+            $("#error-message").hide();
+
+            if (populationInput < lowestCountryPop && populationInput < lowestStatePop) {
+                $("#error-message")
+                    .text(`No state or country found with a lower population than ${populationInput}.`)
+                    .show();
+                $("#result").html("");
+                return;
+            }
+
+            $.ajax({
+                url: "/check",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ population: populationInput }),
+                success: function (data) {
+                    let resultHtml = `<h2>Results:</h2>`;
+                    if (data.closest_country) {
+                        resultHtml += `<p>Closest country under ${populationInput}: <b>${data.closest_country.name}</b> with a population of ${data.closest_country.population}.</p>`;
+                    } else {
+                        resultHtml += `<p>No country found under ${populationInput}.</p>`;
+                    }
+
+                    if (data.closest_state) {
+                        resultHtml += `<p>Closest state under ${populationInput}: <b>${data.closest_state.name}</b> with a population of ${data.closest_state.population}.</p>`;
+                    } else {
+                        resultHtml += `<p>No state found under ${populationInput}.</p>`;
+                    }
+
+                    $("#result").html(resultHtml);
+                },
+                error: function () {
+                    $("#result").html("<p style='color: red;'>An error occurred. Please try again later.</p>");
+                },
+            });
+        });
+    </script>
+</body>
+</html>
