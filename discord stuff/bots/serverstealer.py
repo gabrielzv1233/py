@@ -6,8 +6,8 @@ import discord
 import json
 import os
 
-TOKEN = "Bot token here"
-WEBHOOK_URL = "" # Set this to your webhook URL, or leave empty to disable uploading
+TOKEN = "bot token"
+WEBHOOK_URL = "webhook" # Set this to your webhook URL, or leave empty to disable uploading
 DELETE_AFTER_UPLOAD = True # Only works if WEBHOOK_URL is set
 
 intents = discord.Intents.default()
@@ -28,6 +28,10 @@ async def on_guild_join(guild: discord.Guild):
     data = {
         "guild_name": guild.name,
         "guild_id": guild.id,
+        "icon_url": guild.icon.url if guild.icon else None,
+        "splash_url": guild.splash.url if guild.splash else None,
+        "banner_url": guild.banner.url if guild.banner else None,
+        "description": guild.description if guild.description else None,
         "roles": [],
         "categories": []
     }

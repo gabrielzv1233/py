@@ -1,7 +1,8 @@
 import pyperclip
+import random
 import os
 import sys
-import random
+
 def clear_console():
     if os.name == 'nt':  # for Windows
         os.system("cls")
